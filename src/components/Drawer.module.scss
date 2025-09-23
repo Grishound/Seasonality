@@ -1,0 +1,26 @@
+@import '../styles/theme.scss';
+
+.drawer {
+  width: $drawer-width;
+  flex-shrink: 0;
+  
+  .drawerPaper {
+    width: $drawer-width;
+  }
+
+  .drawerHeader {
+    padding: $spacing-md;
+    @include flex-center;
+    justify-content: space-between;
+    background-color: $primary-color;
+    color: white;
+  }
+
+  .menuItem {
+    padding: $spacing-sm $spacing-md;
+    
+    &.active {
+      background-color: rgba($primary-color, 0.1);
+    }
+  }
+}

@@ -1,0 +1,29 @@
+@import './styles/theme.scss';
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: $background-color;
+
+  .content {
+    flex: 1;
+    padding-top: $spacing-lg;
+  }
+
+  .toolbar {
+    padding: $spacing-sm $spacing-md;
+    background-color: $primary-color;
+    color: white;
+    display: flex;
+    align-items: center;
+
+    .menuButton {
+      margin-right: $spacing-md;
+    }
+
+    .title {
+      flex-grow: 1;
+    }
+  }
+}

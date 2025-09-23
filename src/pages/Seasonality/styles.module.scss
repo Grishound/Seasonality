@@ -1,0 +1,64 @@
+@import '../../styles/theme.scss';
+
+.seasonality {
+  padding: $spacing-lg;
+
+  .header {
+    margin-bottom: $spacing-lg;
+  }
+
+  .filterContainer {
+    display: flex;
+    gap: $spacing-md;
+    margin-bottom: $spacing-lg;
+
+    .MuiAutocomplete-root {
+      .MuiInputBase-root {
+        padding: $spacing-xs;
+      }
+      
+      .MuiAutocomplete-input {
+        min-width: 150px;
+      }
+    }
+  }
+
+  .chartContainer {
+    background: white;
+    padding: $spacing-md;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: $spacing-lg;
+    height: 500px;
+
+    .chartHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: $spacing-md;
+    }
+
+    .chartTitle {
+      margin: 0;
+    }
+
+    .tooltip {
+      background: white;
+      border-radius: 4px;
+      padding: $spacing-sm;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+
+      p {
+        margin: $spacing-xs 0;
+        font-size: $font-size-small;
+      }
+    }
+  }
+
+  .noData {
+    @include flex-center;
+    height: 400px;
+    color: rgba($text-color, 0.5);
+  }
+}

@@ -1,0 +1,22 @@
+@import '../../styles/theme.scss';
+
+.settings {
+  padding: $spacing-lg;
+
+  .header {
+    margin-bottom: $spacing-lg;
+  }
+
+  .section {
+    margin-bottom: $spacing-lg;
+  }
+
+  .formGroup {
+    margin-bottom: $spacing-md;
+  }
+
+  .card {
+    padding: $spacing-md;
+    margin-bottom: $spacing-md;
+  }
+}
