@@ -14,28 +14,40 @@
   }
 
   .toolbar {
-    padding: $spacing-sm $spacing-md;
-    background-color: var(--primary-color);
+    height: var(--app-bar-height);
+    padding: 0 $spacing-lg;
+    background-color: var(--primary-translucent);
+    backdrop-filter: var(--backdrop-blur);
     color: white;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: $spacing-sm;
+    gap: $spacing-md;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 
     @media (max-width: 600px) {
-      padding: $spacing-xs;
-      justify-content: space-between;
+      padding: 0 $spacing-md;
+      gap: $spacing-sm;
     }
 
     .menuButton {
       margin-right: $spacing-md;
+      transition: transform 0.2s ease;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+
       @media (max-width: 600px) {
-        margin-right: $spacing-xs;
+        margin-right: $spacing-sm;
       }
     }
 
     .title {
       flex-grow: 1;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      
       @media (max-width: 600px) {
         font-size: 1.1rem;
       }
@@ -46,8 +58,19 @@
       align-items: center;
       gap: $spacing-md;
       
+      .colorSchemeSelect {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+        min-width: 150px;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.15);
+        }
+      }
+      
       @media (max-width: 600px) {
-        gap: $spacing-xs;
+        gap: $spacing-sm;
       }
 
       .colorSchemeSelect {

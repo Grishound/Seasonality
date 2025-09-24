@@ -30,12 +30,12 @@ const Drawer = ({ open, onClose }) => {
       }}
     >
       <div className={styles.drawerHeader}>
-        <Typography variant="h6">Menu</Typography>
-        <IconButton onClick={onClose} color="inherit">
+        <Typography variant="h6">Seasonality Analysis</Typography>
+        <IconButton onClick={onClose} color="inherit" size="small">
           <MenuIcon />
         </IconButton>
       </div>
-      <List>
+      <List sx={{ padding: '16px 8px' }}>
         {menuItems.map((item) => (
           <ListItem
             button
@@ -43,9 +43,10 @@ const Drawer = ({ open, onClose }) => {
             onClick={() => handleNavigate(item.path)}
             className={`${styles.menuItem} ${location.pathname === item.path ? styles.active : ''}`}
           >
-            <ListItemIcon sx={{ color: 'inherit' }}>{item.icon}</ListItemIcon>
+            <ListItemIcon className={styles.icon}>{item.icon}</ListItemIcon>
             <ListItemText 
               primary={item.text}
+              className={styles.text}
               sx={{ 
                 '& .MuiListItemText-primary': { 
                   color: 'inherit'

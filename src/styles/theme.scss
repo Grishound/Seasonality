@@ -16,24 +16,32 @@ $breakpoint-lg: 1280px;
 
 // Theme variables
 :root {
-  --drawer-width: 240px;
+  --drawer-width: 280px;
+  --app-bar-height: 64px;
+  --drawer-logo-height: 64px;
+  --menu-item-height: 48px;
+  --menu-icon-size: 24px;
 }
 
 // Light mode - Standard
 [data-theme="light-standard"] {
   --primary-color: #1976d2;
+  --primary-translucent: rgba(25, 118, 210, 0.95);
   --secondary-color: #dc004e;
   --background-color: #f5f5f5;
-  --paper-background: #ffffff;
+  --paper-background: rgba(255, 255, 255, 0.8);
+  --elevated-background: rgba(255, 255, 255, 0.95);
+  --translucent-white: rgba(255, 255, 255, 0.7);
   --text-color: #333333;
   --text-secondary: #666666;
-  --border-color: #e0e0e0;
-  --drawer-background: #ffffff;
+  --border-color: rgba(224, 224, 224, 0.6);
+  --drawer-background: rgba(255, 255, 255, 0.95);
   --chart-grid-color: rgba(0, 0, 0, 0.1);
-  --tooltip-background: rgba(255, 255, 255, 0.9);
+  --tooltip-background: rgba(255, 255, 255, 0.95);
   --chart-colors: #FF3366, #33FF66, #3366FF, #FF9933, #9933FF, #33FFFF,
                   #FF33CC, #FFFF33, #33FF99, #FF6633, #3399FF, #CC33FF;
   --line-stroke-width: 2;
+  --backdrop-blur: blur(10px);
   
   --input-background: #ffffff;
   --input-text: #333333;

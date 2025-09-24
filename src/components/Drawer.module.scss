@@ -8,24 +8,66 @@
   .drawerPaper {
     width: var(--drawer-width);
     background-color: var(--drawer-background);
+    backdrop-filter: var(--backdrop-blur);
     border-right: 1px solid var(--border-color);
+    box-shadow: 2px 0 32px rgba(0, 0, 0, 0.1);
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+      pointer-events: none;
+    }
   }
 
   .drawerHeader {
-    padding: $spacing-md;
-    @include flex-center;
+    padding: $spacing-md $spacing-lg;
+    height: var(--drawer-logo-height);
+    display: flex;
+    align-items: center;
     justify-content: space-between;
     background-color: var(--primary-color);
     color: white;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    
+    h6 {
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
   }
 
   .menuItem {
-    padding: $spacing-sm $spacing-md;
+    height: var(--menu-item-height);
+    padding: 0 $spacing-lg;
+    margin: $spacing-xs 0;
     color: var(--text-color);
+    transition: all 0.3s ease;
+    
+    &:hover:not(.active) {
+      background-color: rgba(0, 0, 0, 0.04);
+    }
     
     &.active {
       background-color: var(--primary-color);
       color: white;
+      margin-left: $spacing-xs;
+      margin-right: $spacing-xs;
+      border-radius: 4px;
+    }
+
+    .icon {
+      min-width: var(--menu-icon-size);
+      margin-right: $spacing-md;
+      color: inherit;
+    }
+
+    .text {
+      font-weight: 500;
+      letter-spacing: 0.2px;
     }
   }
 }

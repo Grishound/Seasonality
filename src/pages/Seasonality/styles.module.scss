@@ -2,9 +2,21 @@
 
 .seasonality {
   padding: $spacing-lg;
+  position: relative;
   
   @media (max-width: 600px) {
     padding: $spacing-sm;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(25, 118, 210, 0.05), rgba(25, 118, 210, 0.02));
+    pointer-events: none;
   }
 
   .header {
@@ -19,6 +31,12 @@
     flex-wrap: wrap;
     gap: $spacing-md;
     margin-bottom: $spacing-lg;
+    background: var(--elevated-background);
+    backdrop-filter: var(--backdrop-blur);
+    border-radius: 12px;
+    padding: $spacing-md;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--border-color);
     
     @media (max-width: 600px) {
       gap: $spacing-sm;
@@ -155,17 +173,31 @@
   }
 
   .chartContainer {
-    background: var(--paper-background);
-    padding: $spacing-md;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: var(--elevated-background);
+    backdrop-filter: var(--backdrop-blur);
+    padding: $spacing-lg;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
     margin-bottom: $spacing-lg;
     height: 500px;
     color: var(--text-color);
     border: 1px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+      pointer-events: none;
+    }
     
     @media (max-width: 600px) {
-      padding: $spacing-sm;
+      padding: $spacing-md;
       height: 400px;
       margin-bottom: $spacing-md;
     }
