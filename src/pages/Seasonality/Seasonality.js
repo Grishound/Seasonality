@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Typography, Paper, TextField, Autocomplete } from '@mui/material';
+import { Typography, Paper, TextField, Autocomplete, FormControl, InputLabel, Select, MenuItem, Checkbox, ListItemText } from '@mui/material';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import Papa from 'papaparse';
 import styles from './styles.module.scss';
@@ -11,6 +11,8 @@ const Seasonality = () => {
   const [selectedExchange, setSelectedExchange] = useState('');
   const [selectedInstrument, setSelectedInstrument] = useState('');
   const [chartData, setChartData] = useState([]);
+  const [availableYears, setAvailableYears] = useState([]);
+  const [selectedYears, setSelectedYears] = useState([]);
 
   useEffect(() => {
     const loadData = async () => {
@@ -86,49 +88,65 @@ const Seasonality = () => {
 
       const chartData = Object.values(processedData)
         .sort((a, b) => a.date - b.date);
+      
+      // Get all available years from the data
+      const years = Object.keys(chartData[0] || {})
+        .filter(key => !isNaN(parseInt(key)) && key !== 'date')
+        .sort((a, b) => parseInt(b) - parseInt(a)); // Sort years descending
+      
+      setAvailableYears(years);
+      // Select all years by default
+      if (selectedYears.length === 0) {
+        setSelectedYears(years);
+      }
+      
       setChartData(chartData);
-    } else 
+    } else {
       setChartData([]);
+      setAvailableYears([]);
+      setSelectedYears([]);
+    }
   }, [selectedInstrument, selectedExchange, data]);
 
-  const years = chartData.length > 0
-    ? Object.keys(chartData[0])
-        .filter(key => !isNaN(parseInt(key)) && key !== 'date')
-        .sort((a, b) => parseInt(a) - parseInt(b))
-    : [];
+  const handleYearChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setSelectedYears(typeof value === 'string' ? value.split(',') : value);
+  };
 
-  const getRandomColor = () => {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
+  const getChartColor = (index) => {
+    const colors = getComputedStyle(document.documentElement)
+      .getPropertyValue('--chart-colors')
+      .split(',')
+      .map(color => color.trim());
+    return colors[index % colors.length];
   };
 
   return (
     <div className={styles.seasonality}>
       <div className={styles.filterContainer}>
-        <Autocomplete
-          fullWidth
-          options={exchanges}
-          value={selectedExchange || null}
-          onChange={(event, newValue) => {
-            setSelectedExchange(newValue || '');
-            setSelectedInstrument('');
-          }}
-          renderInput={(params) => (
-            <TextField 
-              {...params} 
-              label="Search Exchange"
-              placeholder="Type to search..."
-            />
-          )}
-          filterOptions={(options, { inputValue }) => {
-            return options.filter(option =>
-              option?.toLowerCase().includes(inputValue.toLowerCase())
-            );
-          }}
+        <div className={styles.searchFilters}>
+          <Autocomplete
+            fullWidth
+            options={exchanges}
+            value={selectedExchange || null}
+            onChange={(event, newValue) => {
+              setSelectedExchange(newValue || '');
+              setSelectedInstrument('');
+            }}
+            renderInput={(params) => (
+              <TextField 
+                {...params} 
+                label="Search Exchange"
+                placeholder="Type to search..."
+              />
+            )}
+            filterOptions={(options, { inputValue }) => {
+              return options.filter(option =>
+                option?.toLowerCase().includes(inputValue.toLowerCase())
+              );
+            }}
           isOptionEqualToValue={(option, value) => option === value}
         />
 
@@ -154,9 +172,37 @@ const Seasonality = () => {
           }}
           isOptionEqualToValue={(option, value) => option === value}
         />
-      </div>
-
-      <Paper className={styles.chartContainer}>
+        </div>
+        
+        {availableYears.length > 0 && (
+          <FormControl className={styles.yearSelect} fullWidth>
+            <InputLabel id="year-select-label">Select Years</InputLabel>
+            <Select
+              labelId="year-select-label"
+              multiple
+              value={selectedYears}
+              onChange={handleYearChange}
+              renderValue={(selected) => selected.join(', ')}
+              label="Select Years"
+              MenuProps={{
+                PaperProps: {
+                  style: {
+                    maxHeight: 300
+                  }
+                }
+              }}
+              sx={{ height: 56 }}
+            >
+              {availableYears.map((year) => (
+                <MenuItem key={year} value={year}>
+                  <Checkbox checked={selectedYears.indexOf(year) > -1} />
+                  <ListItemText primary={year} />
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        )}
+      </div>      <Paper className={styles.chartContainer}>
         <div className={styles.chartHeader}>
           <Typography variant="h6" className={styles.chartTitle}>
             Seasonal Pattern Analysis
@@ -166,7 +212,10 @@ const Seasonality = () => {
         {chartData.length > 0 ? (
           <ResponsiveContainer width="100%" height="90%">
             <LineChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" />
+              <CartesianGrid 
+                strokeDasharray="3 3" 
+                stroke="var(--chart-grid-color)" 
+              />
               <XAxis 
                 dataKey="date"
                 tickFormatter={(value) => {
@@ -175,19 +224,35 @@ const Seasonality = () => {
                                     'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
                   return monthNames[date.getMonth()];
                 }}
-                interval={30} 
+                interval={30}
+                stroke="var(--text-color)"
+                tick={{ fill: 'var(--text-color)' }}
               />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              {years.map((year) => (
+              <YAxis 
+                stroke="var(--text-color)"
+                tick={{ fill: 'var(--text-color)' }}
+              />
+              <Tooltip 
+                contentStyle={{
+                  backgroundColor: 'var(--tooltip-background)',
+                  border: '1px solid var(--border-color)',
+                  color: 'var(--text-color)'
+                }}
+              />
+              <Legend 
+                wrapperStyle={{
+                  color: 'var(--text-color)'
+                }}
+              />
+              {selectedYears.map((year) => (
                 <Line
                   key={year}
                   type="natural"
                   dataKey={year}
                   name={`Year ${year}`}
-                  stroke={getRandomColor()}
+                  stroke={getChartColor(selectedYears.indexOf(year))}
                   dot={false}
+                  strokeWidth={parseInt(getComputedStyle(document.documentElement).getPropertyValue('--line-stroke-width'))}
                   connectNulls={true}
                 />
               ))}

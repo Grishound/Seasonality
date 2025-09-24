@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AppBar, Toolbar, IconButton, Typography } from '@mui/material';
+import { AppBar, Toolbar, IconButton, Typography, Select, MenuItem, FormControl } from '@mui/material';
 import { Menu as MenuIcon } from '@mui/icons-material';
+import { Brightness4, Brightness7, Palette } from '@mui/icons-material';
 import styles from './App.module.scss';
 
 // Components
@@ -12,11 +13,43 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import Seasonality from './pages/Seasonality/Seasonality';
 import Settings from './pages/Settings/Settings';
 
+const colorSchemes = [
+  { value: 'standard', label: 'Standard Colors' },
+  { value: 'deuteranopia', label: 'Deuteranopia' },
+  { value: 'tritanopia', label: 'Tritanopia' }
+];
+
 function App() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [colorScheme, setColorScheme] = useState('standard');
+
+  useEffect(() => {
+    // Load saved preferences
+    const savedMode = localStorage.getItem('app-mode') === 'dark';
+    const savedScheme = localStorage.getItem('app-color-scheme') || 'standard';
+    setIsDarkMode(savedMode);
+    setColorScheme(savedScheme);
+  }, []);
+
+  useEffect(() => {
+    // Update theme
+    const themeMode = isDarkMode ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', `${themeMode}-${colorScheme}`);
+    localStorage.setItem('app-mode', themeMode);
+    localStorage.setItem('app-color-scheme', colorScheme);
+  }, [isDarkMode, colorScheme]);
 
   const toggleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen);
+  };
+
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
+  const handleColorSchemeChange = (event) => {
+    setColorScheme(event.target.value);
   };
 
   return (
@@ -33,8 +66,31 @@ function App() {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" className={styles.title}>
-              React App
+              Seasonality Analysis
             </Typography>
+            <div className={styles.themeControls}>
+              <FormControl size="small" variant="outlined">
+                <Select
+                  value={colorScheme}
+                  onChange={handleColorSchemeChange}
+                  className={styles.colorSchemeSelect}
+                  startAdornment={
+                    <IconButton size="small" edge="start">
+                      <Palette />
+                    </IconButton>
+                  }
+                >
+                  {colorSchemes.map((scheme) => (
+                    <MenuItem key={scheme.value} value={scheme.value}>
+                      {scheme.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <IconButton color="inherit" onClick={toggleTheme}>
+                {isDarkMode ? <Brightness7 /> : <Brightness4 />}
+              </IconButton>
+            </div>
           </Toolbar>
         </AppBar>
 

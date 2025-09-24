@@ -44,8 +44,15 @@ const Drawer = ({ open, onClose }) => {
             onClick={() => handleNavigate(item.path)}
             className={`${styles.menuItem} ${location.pathname === item.path ? styles.active : ''}`}
           >
-            <ListItemIcon>{item.icon}</ListItemIcon>
-            <ListItemText primary={item.text} />
+            <ListItemIcon sx={{ color: 'inherit' }}>{item.icon}</ListItemIcon>
+            <ListItemText 
+              primary={item.text}
+              sx={{ 
+                '& .MuiListItemText-primary': { 
+                  color: 'inherit'
+                }
+              }} 
+            />
           </ListItem>
         ))}
       </List>

@@ -9,27 +9,138 @@
 
   .filterContainer {
     display: flex;
+    flex-wrap: wrap;
     gap: $spacing-md;
     margin-bottom: $spacing-lg;
+    
+    .searchFilters {
+      display: flex;
+      gap: $spacing-md;
+      flex: 1;
+      min-width: 300px;
+    }
+    
+    .yearSelect {
+      min-width: 200px;
+      max-width: 300px;
+      
+      :global {
+        .MuiInputLabel-root {
+          color: var(--label-color);
+          
+          &.Mui-focused {
+            color: var(--primary-color);
+          }
+        }
+        
+        .MuiSelect-select {
+          background-color: var(--input-background);
+          color: var(--input-text);
+        }
+        
+        .MuiOutlinedInput-root {
+          background-color: var(--input-background);
+          
+          &:hover .MuiOutlinedInput-notchedOutline {
+            border-color: var(--input-hover-border);
+          }
+          
+          &.Mui-focused .MuiOutlinedInput-notchedOutline {
+            border-color: var(--input-focus-border);
+          }
+        }
+        
+        .MuiMenuItem-root {
+          color: var(--input-text);
+          
+          &:hover {
+            background-color: var(--autocomplete-hover);
+          }
+          
+          .MuiCheckbox-root {
+            color: var(--primary-color);
+          }
+        }
+        
+        .MuiPopover-paper {
+          background-color: var(--input-background);
+          border: 1px solid var(--border-color);
+        }
+      }
+    }
 
-    .MuiAutocomplete-root {
-      .MuiInputBase-root {
-        padding: $spacing-xs;
+    :global {
+      .MuiAutocomplete-root {
+        .MuiInputBase-root {
+          background-color: var(--input-background);
+          border-color: var(--input-border);
+          color: var(--input-text);
+          
+          &:hover {
+            border-color: var(--input-hover-border);
+          }
+          
+          &.Mui-focused {
+            border-color: var(--input-focus-border);
+          }
+        }
+        
+        .MuiInputLabel-root {
+          color: var(--label-color);
+          
+          &.Mui-focused {
+            color: var(--primary-color);
+          }
+        }
+        
+        .MuiAutocomplete-input {
+          min-width: 150px;
+          color: var(--input-text);
+          
+          &::placeholder {
+            color: var(--input-placeholder);
+          }
+        }
+        
+        .MuiAutocomplete-listbox {
+          background-color: var(--input-background);
+          color: var(--input-text);
+          
+          .MuiAutocomplete-option {
+            &:hover {
+              background-color: var(--autocomplete-hover);
+            }
+            
+            &[aria-selected="true"] {
+              background-color: var(--autocomplete-selected);
+            }
+          }
+        }
       }
       
-      .MuiAutocomplete-input {
-        min-width: 150px;
+      .MuiOutlinedInput-notchedOutline {
+        border-color: var(--input-border);
+      }
+      
+      .MuiInputBase-root:hover .MuiOutlinedInput-notchedOutline {
+        border-color: var(--input-hover-border);
+      }
+      
+      .MuiInputBase-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+        border-color: var(--input-focus-border);
       }
     }
   }
 
   .chartContainer {
-    background: white;
+    background: var(--paper-background);
     padding: $spacing-md;
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: $spacing-lg;
     height: 500px;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
 
     .chartHeader {
       display: flex;
@@ -40,14 +151,15 @@
 
     .chartTitle {
       margin: 0;
+      color: var(--text-color);
     }
 
     .tooltip {
-      background: white;
+      background: var(--tooltip-background);
       border-radius: 4px;
       padding: $spacing-sm;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      border: 1px solid rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border-color);
 
       p {
         margin: $spacing-xs 0;
@@ -59,6 +171,6 @@
   .noData {
     @include flex-center;
     height: 400px;
-    color: rgba($text-color, 0.5);
+    color: var(--text-secondary);
   }
 }
