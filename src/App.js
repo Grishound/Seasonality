@@ -5,13 +5,11 @@ import { Menu as MenuIcon } from '@mui/icons-material';
 import { Brightness4, Brightness7, Palette } from '@mui/icons-material';
 import styles from './App.module.scss';
 
-// Components
 import Drawer from './components/Drawer';
 
-// Pages
-import Dashboard from './pages/Dashboard/Dashboard';
 import Seasonality from './pages/Seasonality/Seasonality';
-import Settings from './pages/Settings/Settings';
+const Dashboard = () => <></>;  
+const Settings = () => <></>; 
 
 const colorSchemes = [
   { value: 'standard', label: 'Standard Colors' },
@@ -25,7 +23,6 @@ function App() {
   const [colorScheme, setColorScheme] = useState('standard');
 
   useEffect(() => {
-    // Load saved preferences
     const savedMode = localStorage.getItem('app-mode') === 'dark';
     const savedScheme = localStorage.getItem('app-color-scheme') || 'standard';
     setIsDarkMode(savedMode);
@@ -33,7 +30,6 @@ function App() {
   }, []);
 
   useEffect(() => {
-    // Update theme
     const themeMode = isDarkMode ? 'dark' : 'light';
     document.documentElement.setAttribute('data-theme', `${themeMode}-${colorScheme}`);
     localStorage.setItem('app-mode', themeMode);
@@ -98,8 +94,9 @@ function App() {
 
         <main className={styles.content}>
           <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/seasonality" element={<Seasonality />} />
+            <Route path="/" element={<Seasonality />} />
+            {/* Dashboard and Settings routes will be added later */}
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/settings" element={<Settings />} />
           </Routes>
         </main>

@@ -95,18 +95,19 @@ const Seasonality = () => {
         .sort((a, b) => parseInt(b) - parseInt(a)); // Sort years descending
       
       setAvailableYears(years);
-      // Select all years by default
-      if (selectedYears.length === 0) {
-        setSelectedYears(years);
-      }
-      
       setChartData(chartData);
     } else {
       setChartData([]);
       setAvailableYears([]);
-      setSelectedYears([]);
     }
   }, [selectedInstrument, selectedExchange, data]);
+
+  // Separate useEffect for handling initial year selection
+  useEffect(() => {
+    if (availableYears.length > 0 && selectedYears.length === 0) {
+      setSelectedYears(availableYears);
+    }
+  }, [availableYears, selectedYears.length]);
 
   const handleYearChange = (event) => {
     const {

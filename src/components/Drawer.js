@@ -1,13 +1,12 @@
 import React from 'react';
 import { Drawer as MuiDrawer, List, ListItem, ListItemIcon, ListItemText, IconButton, Typography } from '@mui/material';
-import { Menu as MenuIcon, Dashboard, Analytics, Settings } from '@mui/icons-material';
+import { Menu as MenuIcon, Analytics } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styles from './Drawer.module.scss';
 
+// Other menu items will be added later
 const menuItems = [
-  { text: 'Dashboard', icon: <Dashboard />, path: '/' },
-  { text: 'Seasonality', icon: <Analytics/>, path: '/seasonality' },
-  { text: 'Settings', icon: <Settings />, path: '/settings' }
+  { text: 'Seasonality', icon: <Analytics/>, path: '/' }
 ];
 
 const Drawer = ({ open, onClose }) => {

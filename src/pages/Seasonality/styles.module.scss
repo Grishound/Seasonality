@@ -2,9 +2,16 @@
 
 .seasonality {
   padding: $spacing-lg;
+  
+  @media (max-width: 600px) {
+    padding: $spacing-sm;
+  }
 
   .header {
     margin-bottom: $spacing-lg;
+    @media (max-width: 600px) {
+      margin-bottom: $spacing-md;
+    }
   }
 
   .filterContainer {
@@ -13,16 +20,31 @@
     gap: $spacing-md;
     margin-bottom: $spacing-lg;
     
+    @media (max-width: 600px) {
+      gap: $spacing-sm;
+      margin-bottom: $spacing-md;
+    }
+    
     .searchFilters {
       display: flex;
       gap: $spacing-md;
       flex: 1;
       min-width: 300px;
+      
+      @media (max-width: 900px) {
+        flex-direction: column;
+        min-width: 100%;
+      }
     }
     
     .yearSelect {
       min-width: 200px;
       max-width: 300px;
+      
+      @media (max-width: 900px) {
+        min-width: 100%;
+        max-width: 100%;
+      }
       
       :global {
         .MuiInputLabel-root {
@@ -141,17 +163,34 @@
     height: 500px;
     color: var(--text-color);
     border: 1px solid var(--border-color);
+    
+    @media (max-width: 600px) {
+      padding: $spacing-sm;
+      height: 400px;
+      margin-bottom: $spacing-md;
+    }
 
     .chartHeader {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: $spacing-md;
+      flex-wrap: wrap;
+      gap: $spacing-sm;
+
+      @media (max-width: 600px) {
+        margin-bottom: $spacing-sm;
+      }
     }
 
     .chartTitle {
       margin: 0;
       color: var(--text-color);
+      
+      @media (max-width: 600px) {
+        font-size: 1.1rem;
+        width: 100%;
+      }
     }
 
     .tooltip {
