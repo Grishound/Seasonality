@@ -1,12 +1,20 @@
 import React from 'react';
 import { Drawer as MuiDrawer, List, ListItem, ListItemIcon, ListItemText, IconButton, Typography } from '@mui/material';
-import { Menu as MenuIcon, Analytics } from '@mui/icons-material';
+import { 
+  Menu as MenuIcon, 
+  Analytics, 
+  TrendingUp, 
+  ShowChart,
+  Settings as SettingsIcon 
+} from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styles from './Drawer.module.scss';
 
-// Other menu items will be added later
 const menuItems = [
-  { text: 'Seasonality', icon: <Analytics/>, path: '/' }
+  { text: 'Seasonality', icon: <Analytics/>, path: '/seasonality' },
+  { text: 'Markets', icon: <TrendingUp/>, path: '/markets' },
+  { text: 'Analysis', icon: <ShowChart/>, path: '/analysis' },
+  { text: 'Settings', icon: <SettingsIcon/>, path: '/settings' }
 ];
 
 const Drawer = ({ open, onClose }) => {
@@ -30,7 +38,10 @@ const Drawer = ({ open, onClose }) => {
       }}
     >
       <div className={styles.drawerHeader}>
-        <Typography variant="h6">Seasonality Analysis</Typography>
+        <div className={styles.drawerTitle}>
+          <Typography variant="h6">Trade View</Typography>
+          <Typography variant="subtitle2" style={{ opacity: 0.8 }}>Analytics Platform</Typography>
+        </div>
         <IconButton onClick={onClose} color="inherit" size="small">
           <MenuIcon />
         </IconButton>

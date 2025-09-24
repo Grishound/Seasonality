@@ -6,10 +6,12 @@ import { Brightness4, Brightness7, Palette } from '@mui/icons-material';
 import styles from './App.module.scss';
 
 import Drawer from './components/Drawer';
-
 import Seasonality from './pages/Seasonality/Seasonality';
-const Dashboard = () => <></>;  
-const Settings = () => <></>; 
+
+// Placeholder components for future modules
+const Markets = () => <></>;
+const Analysis = () => <></>;
+const Settings = () => <></>;
 
 const colorSchemes = [
   { value: 'standard', label: 'Standard Colors' },
@@ -62,7 +64,7 @@ function App() {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" className={styles.title}>
-              Seasonality Analysis
+              Trade View
             </Typography>
             <div className={styles.themeControls}>
               <FormControl size="small" variant="outlined">
@@ -92,11 +94,12 @@ function App() {
 
         <Drawer open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
 
-        <main className={styles.content}>
+                <main className={styles.content}>
           <Routes>
             <Route path="/" element={<Seasonality />} />
-            {/* Dashboard and Settings routes will be added later */}
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/seasonality" element={<Seasonality />} />
+            <Route path="/markets" element={<Markets />} />
+            <Route path="/analysis" element={<Analysis />} />
             <Route path="/settings" element={<Settings />} />
           </Routes>
         </main>
